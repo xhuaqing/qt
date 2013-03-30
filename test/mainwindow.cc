@@ -21,6 +21,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     QToolBar *toolBar = addToolBar(tr("&File"));
     toolBar->addAction(openAction);
+    toolBar->addAction(openAction);
 
     QStatusBar *statBar = statusBar();
     statBar->addAction(openAction);
@@ -28,7 +29,6 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    delete openAction;
 }
 
 void MainWindow::open()
