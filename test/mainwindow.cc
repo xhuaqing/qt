@@ -9,7 +9,8 @@ MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     setWindowTitle(tr("Main Window"));
-    openAction = new QAction(QIcon(":/images/open.ico"),tr("&Open..."),this);
+
+    openAction = new QAction(QIcon(":/images/doc-open"),tr("&Open..."),this);
     openAction->setShortcut(QKeySequence::Open);
     openAction->setStatusTip(tr("Open an existing file"));
 
@@ -27,7 +28,7 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
-    
+    delete openAction;
 }
 
 void MainWindow::open()

@@ -16,3 +16,6 @@ SOURCES += main.cc\
         mainwindow.cc
 
 HEADERS  += mainwindow.h
+
+RESOURCES += \
+    test.qrc
