@@ -4,6 +4,8 @@
 #include <QStatusBar>
 #include <QMessageBox>
 #include <QToolBar>
+#include <QFileDialog>
+#include <QTextStream>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -24,6 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     QMenu *file = menuBar()->addMenu(tr("&File"));
     file->addAction(openAction);
     file->addAction(saveAction);
+    menuBar()->addAction(openAction);
 
     QToolBar *toolBar = addToolBar(tr("&File"));
     toolBar->addAction(openAction);
@@ -40,8 +43,8 @@ MainWindow::~MainWindow()
 {
 }
 
-void MainWindow::openFile()
-{
+//void MainWindow::open()
+//{
 //    QMessageBox::aboutQt(this);
 //    QMessageBox::information(this,tr("Information"),tr("open"));
 //    QDialog *dialog = new QDialog(this);
@@ -49,9 +52,38 @@ void MainWindow::openFile()
 //    dialog->setAttribute(Qt::WA_DeleteOnClose);
 //    dialog->setWindowTitle(tr("Hello, Dialog!"));
 //    dialog->show();
+//}
+
+void MainWindow::openFile()
+{
+    QString path = QFileDialog::getOpenFileName(this,tr("open file"),".",tr("Text File(*.txt)"));
+    if(!path.isEmpty()){
+        QFile file(path);
+        if(!file.open(QFile::ReadOnly | QFile::Text)){
+            QMessageBox::warning(this,tr("read file"),tr("Cannot open file:\n%1").arg(path));
+            return;
+        }
+        QTextStream in(&file);
+        textEdit->setText(in.readAll());
+        file.close();
+    } else {
+        QMessageBox::warning(this,tr("path"),tr("you did not select any file."));
+    }
 }
 
 void MainWindow::saveFile()
 {
-
+    QString path = QFileDialog::getSaveFileName(this,tr("save file"),".",tr("Text File(*.txt)"));
+    if(!path.isEmpty()){
+        QFile file(path);
+        if(!file.open(QFile::WriteOnly | QFile::Text)){
+            QMessageBox::warning(this,tr("write file"),tr("Cannot open file:\n%1").arg(path));
+            return;
+        }
+        QTextStream out(&file);
+        out << textEdit->toPlainText();
+        file.close();
+    }else{
+        QMessageBox::warning(this,tr("path"),tr("you did not select any file."));
+    }
 }
