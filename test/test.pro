@@ -13,9 +13,13 @@ TEMPLATE = app
 
 
 SOURCES += main.cc\
-        mainwindow.cc
+        mainwindow.cc \
+    eventlabel.cc
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    eventlabel.h
 
 RESOURCES += \
     test.qrc
+
+QMAKE_CXXFLAGS += -std=c++11

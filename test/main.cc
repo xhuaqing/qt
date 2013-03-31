@@ -4,12 +4,35 @@
 #include <QSpinBox>
 #include <QSlider>
 #include <QHBoxLayout>
+#include "eventlabel.h"
 
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
+    /**
+     * 鼠标事件
+     */
+//    EventLabel label;
+//    label.setWindowTitle("MouseEvent Demo");
+//    label.resize(300,200);
+////    label.setText("<center><h1>MouseEvent Demo</h1></center>");
+//    label.setMouseTracking(true);
+//    label.show();
+
+
+
+    /**
+     * 打开保存文件Dialog
+     */
     MainWindow w;
     w.show();
+
+
+
+    /**
+     * 布局管理器
+     */
 //    QWidget window;
 //    window.setWindowTitle("Enter your age");
 

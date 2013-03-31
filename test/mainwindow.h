@@ -12,6 +12,10 @@ public:
     MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
+protected:
+    void closeEvent(QCloseEvent *);
+    bool eventFilter(QObject *, QEvent *);
+
 private:
     void openFile();
     void saveFile();

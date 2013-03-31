@@ -6,11 +6,12 @@
 #include <QToolBar>
 #include <QFileDialog>
 #include <QTextStream>
+#include <QCloseEvent>
+#include <QDebug>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    setWindowTitle(tr("Main Window"));
     resize(300,200);
     openAction = new QAction(QIcon(":/images/doc-open"),tr("&Open..."),this);
     openAction->setShortcut(QKeySequence::Open);
@@ -34,6 +35,13 @@ MainWindow::MainWindow(QWidget *parent)
 
     textEdit = new QTextEdit(this);
     setCentralWidget(textEdit);
+    textEdit->installEventFilter(this);
+
+    connect(textEdit,&QTextEdit::textChanged,[this](){
+        this->setWindowModified(true);
+    });
+
+    setWindowTitle(tr("TextPad [*]"));
 
     QStatusBar *statBar = statusBar();
 //    statBar->addAction(openAction);
@@ -41,6 +49,35 @@ MainWindow::MainWindow(QWidget *parent)
 
 MainWindow::~MainWindow()
 {
+}
+
+void MainWindow::closeEvent(QCloseEvent *e)
+{
+    if(isWindowModified()){
+        bool exit = QMessageBox::question(this,tr("Quit"),tr("Are you sure to quit this application?"),
+                                          QMessageBox::Yes|QMessageBox::No,QMessageBox::No) == QMessageBox::Yes;
+        if(exit)
+            e->accept();
+        else
+            e->ignore();
+    }else{
+        e->accept();
+    }
+}
+
+bool MainWindow::eventFilter(QObject * obj, QEvent * evt)
+{
+    if(obj==textEdit){
+        if(evt->type()==QEvent::KeyPress){
+            QKeyEvent *keyEvent = static_cast<QKeyEvent*>(evt);
+            qDebug() << "Ate key press" << keyEvent->key();
+            return false;
+        }else{
+            return false;
+        }
+    }else{
+        QMainWindow::eventFilter(obj,evt);
+    }
 }
 
 //void MainWindow::open()
@@ -66,6 +103,7 @@ void MainWindow::openFile()
         QTextStream in(&file);
         textEdit->setText(in.readAll());
         file.close();
+        setWindowModified(false);
     } else {
         QMessageBox::warning(this,tr("path"),tr("you did not select any file."));
     }
@@ -83,6 +121,7 @@ void MainWindow::saveFile()
         QTextStream out(&file);
         out << textEdit->toPlainText();
         file.close();
+        setWindowModified(false);
     }else{
         QMessageBox::warning(this,tr("path"),tr("you did not select any file."));
     }
