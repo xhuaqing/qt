@@ -8,11 +8,13 @@
 #include <QTextStream>
 #include <QCloseEvent>
 #include <QDebug>
+#include <QVBoxLayout>
+#include "paintedwidget.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    resize(300,200);
+    resize(450,350);
     openAction = new QAction(QIcon(":/images/doc-open"),tr("&Open..."),this);
     openAction->setShortcut(QKeySequence::Open);
     openAction->setStatusTip(tr("Open an existing file"));
@@ -33,8 +35,11 @@ MainWindow::MainWindow(QWidget *parent)
     toolBar->addAction(openAction);
     toolBar->addAction(saveAction);
 
-    textEdit = new QTextEdit(this);
-    setCentralWidget(textEdit);
+    QWidget *w = new QWidget(this);
+    setCentralWidget(w);
+
+    textEdit = new QTextEdit;
+//    setCentralWidget(textEdit);
     textEdit->installEventFilter(this);
 
     connect(textEdit,&QTextEdit::textChanged,[this](){
@@ -43,8 +48,18 @@ MainWindow::MainWindow(QWidget *parent)
 
     setWindowTitle(tr("TextPad [*]"));
 
+    PaintedWidget *widget = new PaintedWidget;
+//    setCentralWidget(widget);
+
+    QVBoxLayout *vbox = new QVBoxLayout(w);
+    vbox->addWidget(textEdit,1);
+    vbox->addWidget(widget,5);
+
+//    w->setLayout(&vbox);
+
+
     QStatusBar *statBar = statusBar();
-//    statBar->addAction(openAction);
+    statBar->addAction(openAction);
 }
 
 MainWindow::~MainWindow()
@@ -76,7 +91,7 @@ bool MainWindow::eventFilter(QObject * obj, QEvent * evt)
             return false;
         }
     }else{
-        QMainWindow::eventFilter(obj,evt);
+        return QMainWindow::eventFilter(obj,evt);
     }
 }
 

@@ -14,10 +14,12 @@ TEMPLATE = app
 
 SOURCES += main.cc\
         mainwindow.cc \
-    eventlabel.cc
+    eventlabel.cc \
+    paintedwidget.cc
 
 HEADERS  += mainwindow.h \
-    eventlabel.h
+    eventlabel.h \
+    paintedwidget.h
 
 RESOURCES += \
     test.qrc
