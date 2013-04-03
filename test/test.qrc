@@ -1,5 +1,8 @@
 <RCC>
     <qresource prefix="/images">
         <file alias="doc-open">images/open.png</file>
+        <file alias="tq1">images/tq1.png</file>
+        <file alias="tq2">images/tq2.png</file>
+        <file alias="tq3">images/tq3.png</file>
     </qresource>
 </RCC>

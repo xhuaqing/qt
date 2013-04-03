@@ -2,6 +2,7 @@
 #include <QPainter>
 #include <QVBoxLayout>
 #include <QTextEdit>
+#include <QBitmap>
 
 PaintedWidget::PaintedWidget(QWidget *parent) :
     QWidget(parent)
@@ -71,5 +72,10 @@ void PaintedWidget::paintEvent(QPaintEvent *)
     painter.fillRect(10,10,50,100,Qt::cyan);
 
     painter.restore();
+
+    QPixmap pixmap(":/images/tq2");
+    QBitmap bitmap(":/images/tq2");
+    painter.drawPixmap(10,10,128,128,pixmap);
+    painter.drawPixmap(148,10,128,128,bitmap);
 
 }
