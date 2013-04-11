@@ -5,6 +5,8 @@
 #include <QSlider>
 #include <QHBoxLayout>
 #include "eventlabel.h"
+#include <QGraphicsScene>
+#include <QGraphicsView>
 
 int main(int argc, char *argv[])
 {
@@ -19,6 +21,15 @@ int main(int argc, char *argv[])
 ////    label.setText("<center><h1>MouseEvent Demo</h1></center>");
 //    label.setMouseTracking(true);
 //    label.show();
+
+    /*
+     * Scene View
+     */
+    QGraphicsScene scene;
+    scene.addLine(0,0,300,200);
+    scene.setSceneRect(0,0,300,300);
+    QGraphicsView view(&scene);
+    view.show();
 
 
 
