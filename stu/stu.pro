@@ -12,8 +12,10 @@ TARGET = stu
 TEMPLATE = app
 
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    finddialog.cpp
 
-HEADERS  +=
+HEADERS  += \
+    finddialog.h
 
 CONFIG += c++11
