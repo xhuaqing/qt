@@ -9,6 +9,7 @@
 #include <QDebug>
 
 #include "finddialog.h"
+#include "gotocelldialog.h"
 
 int main(int argc, char *argv[])
 {
@@ -47,9 +48,12 @@ int main(int argc, char *argv[])
 //    window->setLayout(layout);
 //    window->show();
 
-    FindDialog *dialog = new FindDialog;
-    dialog->show();
+//    FindDialog *dialog = new FindDialog;
+//    dialog->show();
 
+
+    GoToCellDialog *dialog = new GoToCellDialog;
+    dialog->show();
 
     return a.exec();
 }

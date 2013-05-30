@@ -13,9 +13,14 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp \
-    finddialog.cpp
+    finddialog.cpp \
+    gotocelldialog.cpp
 
 HEADERS  += \
-    finddialog.h
+    finddialog.h \
+    gotocelldialog.h
 
 CONFIG += c++11
+
+FORMS += \
+    gotocelldialog.ui

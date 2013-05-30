@@ -5,6 +5,7 @@
 #include <QPushButton>
 #include <QHBoxLayout>
 #include <QVBoxLayout>
+#include <QDebug>
 
 FindDialog::FindDialog(QWidget *parent) :
     QDialog(parent)
