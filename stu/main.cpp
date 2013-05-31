@@ -10,6 +10,7 @@
 
 #include "finddialog.h"
 #include "gotocelldialog.h"
+#include "sortdialog.h"
 
 int main(int argc, char *argv[])
 {
@@ -52,7 +53,11 @@ int main(int argc, char *argv[])
 //    dialog->show();
 
 
-    GoToCellDialog *dialog = new GoToCellDialog;
+//    GoToCellDialog *dialog = new GoToCellDialog;
+//    dialog->show();
+
+    SortDialog *dialog = new SortDialog;
+    dialog->setColumnRange('A','E');
     dialog->show();
 
     return a.exec();
